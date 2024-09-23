@@ -43,22 +43,21 @@ namespace CatalogProd
             var manufacturers = db.Products.Select(p => p.Manufacturer).Distinct().ToList();
             ManufacturerComboBox.SelectedIndexChanged -= ManufacturerComboBox_SelectedIndexChanged;
             ManufacturerComboBox.Items.Clear();
-            ManufacturerComboBox.Items.Add("Все производители");
+            ManufacturerComboBox.Items.Add("Г‚Г±ГҐ ГЇГ°Г®ГЁГ§ГўГ®Г¤ГЁГІГҐГ«ГЁ");
 
             foreach (var manu in manufacturers)
             {
                 ManufacturerComboBox.Items.Add(manu);
             }
 
-            if (manufacturer == null || manufacturer == "Все производители") // Если не передан конкретный производитель
+            if (manufacturer == null || manufacturer == "Г‚Г±ГҐ ГЇГ°Г®ГЁГ§ГўГ®Г¤ГЁГІГҐГ«ГЁ") 
             {
-                ManufacturerComboBox.SelectedItem = ManufacturerComboBox.Items[0]; // Устанавливаем "Все производители" по умолчанию
+                ManufacturerComboBox.SelectedItem = ManufacturerComboBox.Items[0]; 
             }
-            else // Если передан конкретный производитель
+            else 
             {
                 ManufacturerComboBox.SelectedItem = manufacturer;
             }
-
             ManufacturerComboBox.SelectedIndexChanged += ManufacturerComboBox_SelectedIndexChanged;
         }
 
@@ -68,7 +67,7 @@ namespace CatalogProd
         {
             var products = db.Products.ToList();
 
-            if (manufacturer != null && manufacturer != "Все производители")
+            if (manufacturer != null && manufacturer != "Г‚Г±ГҐ ГЇГ°Г®ГЁГ§ГўГ®Г¤ГЁГІГҐГ«ГЁ")
             {
                 products = products.Where(p => p.Manufacturer == manufacturer).ToList();
             }
@@ -110,7 +109,7 @@ namespace CatalogProd
 
             int totalPages = (int)Math.Ceiling((double)filteredProducts.Count / itemsPerPage);
             if (totalProductCount == 0) totalPages = 1;
-            NowPageLabel.Text = $"Страница {currentPage} из {totalPages}";
+            NowPageLabel.Text = $"Г‘ГІГ°Г Г­ГЁГ¶Г  {currentPage} ГЁГ§ {totalPages}";
 
             var paginatedProducts = filteredProducts.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage).ToList();
 
@@ -121,7 +120,7 @@ namespace CatalogProd
                 flowLayoutPanel1.Controls.Add(productElement);
             }
 
-            CountProducts.Text = $"Показано {paginatedProducts.Count} из {totalProductCount}";
+            CountProducts.Text = $"ГЏГ®ГЄГ Г§Г Г­Г® {paginatedProducts.Count} ГЁГ§ {totalProductCount}";
             BackBtn.Enabled = currentPage > 1;
             NextBtn.Enabled = currentPage < totalPages;
         }
